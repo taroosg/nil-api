@@ -1,0 +1,14 @@
+{
+  "name": "git_grass_grower",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "taroosg",
+  "license": "ISC",
+  "dependencies": {
+    "simple-git": "^1.131.0"
+  }
+}
