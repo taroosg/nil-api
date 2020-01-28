@@ -8,32 +8,40 @@ const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express();
-const corsOptions = {
-  origin: 'https://ggg-app.netlify.com',
-  optionsSuccessStatus: 200
-}
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-const allowCrossDomain = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization, access_token'
-  )
-  // intercept OPTIONS method
-  if ('OPTIONS' === req.method) {
-    res.send(200)
-  } else {
-    next()
-  }
+const corsOptions = {
+  origin: 'https://ggg-app.netlify.com',
+  optionsSuccessStatus: 200
 }
-app.use(allowCrossDomain)
+const corsm = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  next();
+};
+
+
+// const allowCrossDomain = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Content-Type, Authorization, access_token'
+//   )
+//   // intercept OPTIONS method
+//   if ('OPTIONS' === req.method) {
+//     res.send(200)
+//   } else {
+//     next()
+//   }
+// }
+// app.use(allowCrossDomain)
 // app.use(cors())
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
-app.post('/api/v1/request', cors(), (req, res) => {
+app.post('/api/v1/request', corsm, (req, res) => {
   console.log(req.headers)
   // if (
   // (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
