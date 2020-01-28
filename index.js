@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const cors = require('cors')
+const proxy = require('http-proxy-middleware');
 const bodyParser = require('body-parser')
 const app = express();
 
@@ -44,6 +45,11 @@ const corsOptions = {
 // }
 // app.use(allowCrossDomain)
 app.use(cors())
+app.use(
+  '/api',
+  proxy({ target: 'https://ggg-app.netlify.com', changeOrigin: true })
+);
+
 app.options('/api/v1/request', cors())
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
 app.post('/api/v1/request', (req, res) => {
@@ -53,7 +59,7 @@ app.post('/api/v1/request', (req, res) => {
   // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
   // ) {
   console.log(req.body)
-  tweetPost(req.body.tweet);
+  // tweetPost(req.body.tweet);
   res.json(req.body);
   // } else {
   // res.send(400);
