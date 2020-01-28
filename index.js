@@ -13,10 +13,10 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-const corsOptions = {
-  origin: 'https://ggg-app.netlify.com',
-  optionsSuccessStatus: 200
-}
+// const corsOptions = {
+//   origin: 'https://ggg-app.netlify.com',
+//   optionsSuccessStatus: 200
+// }
 // const corsm = (req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
 //   res.header('Access-Control-Allow-Methods', 'GET, POST');
@@ -44,15 +44,15 @@ const corsOptions = {
 //   }
 // }
 // app.use(allowCrossDomain)
+// app.options('/api/v1/request', cors())
 app.use(cors())
 // app.use(
 //   '/api',
 //   proxy({ target: 'https://ggg-app.netlify.com', changeOrigin: true })
 // );
 
-app.options('/api/v1/request', cors())
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
-app.post('/api/v1/request', (req, res) => {
+app.post('/', (req, res) => {
   console.log(req.headers)
   // if (
   // (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
