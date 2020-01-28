@@ -5,38 +5,34 @@ const git = require('simple-git');
 const fs = require('fs');
 const path = require('path');
 const express = require('express');
+const cors = require('cors')
 const bodyParser = require('body-parser')
 const app = express();
-// const router = express.Router()
+const corsOptions = {
+  origin: 'https://ggg-app.netlify.com',
+  optionsSuccessStatus: 200
+}
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-const allowCrossDomain = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Content-Type, Authorization, access_token'
-  )
-  // intercept OPTIONS method
-  if ('OPTIONS' === req.method) {
-    res.send(200)
-  } else {
-    next()
-  }
-}
-app.use(allowCrossDomain)
+// const allowCrossDomain = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+//   res.header(
+//     'Access-Control-Allow-Headers',
+//     'Content-Type, Authorization, access_token'
+//   )
+//   // intercept OPTIONS method
+//   if ('OPTIONS' === req.method) {
+//     res.send(200)
+//   } else {
+//     next()
+//   }
+// }
+// app.use(allowCrossDomain)
 
-// router.use(function (req, res, next) {
-//   console.log('Request URL:', req.originalUrl)
-//   next()
-// }, function (req, res, next) {
-//   console.log('Request Type:', req.method)
-//   next()
-// })
-
-app.post('/api/v1/request', (req, res) => {
+app.post('/api/v1/request', cors(corsOptions), (req, res) => {
   console.log(req.headers)
   if (
     (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
