@@ -46,10 +46,10 @@ app.use(bodyParser.json())
 // app.use(allowCrossDomain)
 // app.options('/api/v1/request', cors())
 app.use(cors())
-// app.use(
-//   '/api',
-//   proxy({ target: 'https://ggg-app.netlify.com', changeOrigin: true })
-// );
+app.use(
+  '/api',
+  proxy({ target: 'https://ggg-app.netlify.com', changeOrigin: true })
+);
 
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
 app.post('/', (req, res) => {
