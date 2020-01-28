@@ -46,13 +46,9 @@ app.use(bodyParser.json())
 // app.use(allowCrossDomain)
 // app.options('/api/v1/request', cors())
 app.use(cors())
-app.use(
-  '/api',
-  proxy({ target: 'https://ggg-app.netlify.com', changeOrigin: true })
-);
 
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
-app.post('/', (req, res) => {
+app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   // if (
   // (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
