@@ -59,7 +59,7 @@ app.post('/api/v1/request', corsm, (req, res) => {
   // }
 });
 
-app.listen(8000, () => console.log('Listening on port 8000'));
+app.listen(40103, () => console.log('Listening on port 40103'));
 
 // twitter設定
 const Twitter = require('twitter');
