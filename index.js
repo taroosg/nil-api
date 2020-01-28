@@ -16,16 +16,16 @@ const corsOptions = {
   origin: 'https://ggg-app.netlify.com',
   optionsSuccessStatus: 200
 }
-const corsm = (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, POST');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.status(200).send()
-  }
+// const corsm = (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET, POST');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   if (req.method === 'OPTIONS') {
+//     res.status(200).send()
+//   }
 
-  next();
-};
+//   next();
+// };
 
 
 // const allowCrossDomain = (req, res, next) => {
@@ -43,23 +43,23 @@ const corsm = (req, res, next) => {
 //   }
 // }
 // app.use(allowCrossDomain)
-// app.use(cors())
+app.use(cors())
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
-app.post('/api/v1/request', corsm, (req, res) => {
+app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   // if (
   // (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
   // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
   // ) {
   console.log(req.body)
-  tweetPost(req.body.tweet);
+  // tweetPost(req.body.tweet);
   res.json(req.body);
   // } else {
   // res.send(400);
   // }
 });
 
-app.listen(80, () => console.log('Listening on port 80'));
+app.listen(8000, () => console.log('Listening on port 8000'));
 
 // twitter設定
 const Twitter = require('twitter');
