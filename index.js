@@ -16,21 +16,21 @@ const corsOptions = {
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// const allowCrossDomain = (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*')
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Content-Type, Authorization, access_token'
-//   )
-//   // intercept OPTIONS method
-//   if ('OPTIONS' === req.method) {
-//     res.send(200)
-//   } else {
-//     next()
-//   }
-// }
-// app.use(allowCrossDomain)
+const allowCrossDomain = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Content-Type, Authorization, access_token'
+  )
+  // intercept OPTIONS method
+  if ('OPTIONS' === req.method) {
+    res.send(200)
+  } else {
+    next()
+  }
+}
+app.use(allowCrossDomain)
 // app.use(cors())
 // app.post('/api/v1/request', cors(corsOptions), (req, res) => {
 app.post('/api/v1/request', cors(), (req, res) => {
