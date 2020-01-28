@@ -7,11 +7,12 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
+// const router = express.Router()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-const allowCrossDomain = function (req, res, next) {
+const allowCrossDomain = (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   res.header(
@@ -27,15 +28,29 @@ const allowCrossDomain = function (req, res, next) {
 }
 app.use(allowCrossDomain)
 
+// router.use(function (req, res, next) {
+//   console.log('Request URL:', req.originalUrl)
+//   next()
+// }, function (req, res, next) {
+//   console.log('Request Type:', req.method)
+//   next()
+// })
 
-
-app.get('/api/v1/request', (req, res) => {
-  console.log(req.query)
-  tweetPost(req.query.tweet);
-  res.json(req.query);
+app.post('/api/v1/request', (req, res) => {
+  console.log(req.headers)
+  if (
+    (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
+    // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
+  ) {
+    console.log(req.body)
+    tweetPost(req.body.tweet);
+    res.json(req.body);
+  } else {
+    res.send(400);
+  }
 });
 
-app.listen(3000, () => console.log('Listening on port 3000'));
+app.listen(8000, () => console.log('Listening on port 8000'));
 
 // twitter設定
 const Twitter = require('twitter');
@@ -51,7 +66,7 @@ const tweetPost = content => {
   client.post('statuses/update', { status: content }, function (error, tweet, response) {
     if (!error) {
       console.log("tweet success: " + content);
-      createGrass(content);
+      createGrass(content.split('\n').join(''));
     } else {
       console.log(error);
     }
