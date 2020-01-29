@@ -18,8 +18,9 @@ app.use(cors())
 app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   if (
-    (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
-    // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === 'ueMKNand78c9Yz2IvMgct22rnuj2')
+    // 自分のところだけ許可
+    (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === process.env.UID)
+    // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === process.env.UID)
   ) {
     console.log(req.body)
     tweetPost(req.body.tweet);
