@@ -65,7 +65,7 @@ const gitAddCommitPush = local_folder => {
 const createGrass = tweet => {
   const local_folder = 'nil';
   const time = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
-  const position = 22;
+  const position = 23;
   const file_path = `${local_folder}/README.md`;
   const new_text = `\n- ${time} ${tweet}\n`;
 
