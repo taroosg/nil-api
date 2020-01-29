@@ -19,7 +19,7 @@ app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   if (
     // 自分のところだけ許可
-    (req.headers.origin === 'https://ggg-app.netlify.com' && req.body.uid === process.env.UID)
+    (req.headers.origin === 'https://nil-app.netlify.com' && req.body.uid === process.env.UID)
     // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === process.env.UID)
   ) {
     console.log(req.body)
@@ -63,9 +63,9 @@ const gitAddCommitPush = local_folder => {
 
 // tweet内容をファイル追記→草生やす関数
 const createGrass = tweet => {
-  const local_folder = 'diary';
+  const local_folder = 'nil';
   const time = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
-  const position = 11;
+  const position = 22;
   const file_path = `${local_folder}/README.md`;
   const new_text = `\n- ${time} ${tweet}\n`;
 
