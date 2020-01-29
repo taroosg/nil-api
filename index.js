@@ -57,13 +57,13 @@ const gitAddCommitPush = local_folder => {
   git(local_folder)
     .add('.')
     .commit('README.md updated.')
-    .push(['-u', 'origin', 'master']);
+    .push(['-u', 'origin', 'master'], result => { console.log(result) });
 }
 
 // tweet内容をファイル追記→草生やす関数
 const createGrass = tweet => {
   const local_folder = 'diary';
-  const time = new Date();
+  const time = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
   const position = 11;
   const file_path = `${local_folder}/README.md`;
   const new_text = `\n- ${time} ${tweet}\n`;
