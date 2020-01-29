@@ -55,9 +55,9 @@ const tweetPost = content => {
 // add commit push関数
 const gitAddCommitPush = local_folder => {
   git(local_folder)
-    .add('.')
-    .commit('README.md updated.')
-    .push(['-u', 'origin', 'master'], result => { console.log(result) });
+    .add('.', result => { `add: ${console.log(result)}` })
+    .commit('README.md updated.', result => { `commit: ${console.log(result)}` })
+    .push(['-u', 'origin', 'master'], result => { `push: ${console.log(result)}` });
 }
 
 // tweet内容をファイル追記→草生やす関数
