@@ -19,12 +19,15 @@ app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   if (
     // 自分のところだけ許可
-    (req.headers.origin === 'https://nil-app.netlify.com' && req.body.uid === process.env.UID)
-    // || (req.headers.origin === 'http://localhost:3000' && req.body.uid === process.env.UID)
+    req.headers.origin === process.env.ORIGIN && req.body.uid === process.env.UID
   ) {
     console.log(req.body)
     tweetPost(req.body.tweet);
-    res.json(req.body);
+    const responseData = {
+      grass: getGrass(grassUrl),
+      req: req.body
+    }
+    res.json(responseData);
   } else {
     res.send(400);
   }
@@ -85,13 +88,24 @@ const createGrass = tweet => {
   });
 }
 
+// 草取得関数
+var request = require('sync-request');
+
+const grassUrl = 'https://github.com/users/taroosg/contributions'
+
+const getGrass = url => {
+  const response = request('GET', url);
+  const grass = response.body.toString()
+  return grass;
+}
+
 // ファイルの末尾に追記する方法
 // fs.appendFile('diary/README.md', `\n${time}\n`, 'utf-8', (result) => {
 //   gitAddCommitPush(local_folder);
 // });
 
 // 最初にやるときだけ実行
-// const git_url = 'https://github.com/taroosg/git_diary.git';
+// const git_url = 'git@github.com:taroosg/nil.git';
 // const dirname = path.dirname('./' + local_folder);
 // fs.access(dirname, fs.constants.R_OK | fs.constants.W_OK, (err) => {
 //   if (err) {
