@@ -22,7 +22,7 @@ app.post('/api/v1/request', (req, res) => {
     req.headers.origin === process.env.ORIGIN && req.body.uid === process.env.UID
   ) {
     console.log(req.body)
-    // tweetPost(req.body.tweet);
+    tweetPost(req.body.tweet);
     const responseData = {
       grass: getGrass(grassUrl),
       req: req.body
