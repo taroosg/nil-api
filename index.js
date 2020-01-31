@@ -15,6 +15,17 @@ app.use(bodyParser.json())
 
 app.use(cors())
 
+app.get('/api/v1/grass', (req, res) => {
+  if (
+    // 自分のところだけ許可
+    req.headers.origin === process.env.ORIGIN && req.query.uid === process.env.UID
+  ) {
+    res.json(getGrass(grassUrl));
+  } else {
+    res.send(400);
+  }
+})
+
 app.post('/api/v1/request', (req, res) => {
   console.log(req.headers)
   if (
@@ -22,12 +33,12 @@ app.post('/api/v1/request', (req, res) => {
     req.headers.origin === process.env.ORIGIN && req.body.uid === process.env.UID
   ) {
     console.log(req.body)
-    tweetPost(req.body.tweet);
-    const responseData = {
-      grass: getGrass(grassUrl),
-      req: req.body
-    }
-    res.json(responseData);
+    // tweetPost(req.body.tweet);
+    // const responseData = {
+    //   grass: getGrass(grassUrl),
+    //   req: req.body
+    // }
+    res.json(req.body);
   } else {
     res.send(400);
   }
@@ -89,15 +100,20 @@ const createGrass = tweet => {
 }
 
 // 草取得関数
-var request = require('sync-request');
+const request = require('sync-request');
 
-const grassUrl = 'https://github.com/users/taroosg/contributions'
+const grassUrl = process.env.GRASS_URL;
 
 const getGrass = url => {
   const response = request('GET', url);
-  var grass = response.body.toString().match(/<svg(?: [\s\S]+?)?>[\s\S]*?<\/svg>/g);
-  return grass;
+  // var grass = response.body.toString().match(/<svg(?: [\s\S]+?)?>[\s\S]*?<\/svg>/g);
+  const grassElement = response.body.toString().match(/<rect(?: [\s\S]+?)?\/>/g);
+  const grassArray = grassElement.map(x => {
+    return { data_date: x.split(' ')[8].slice(11, 21), data_count: Number(x.split(' ')[7].split('"').join('').slice(11)) }
+  });
+  return grassArray;
 }
+// console.log(getGrass(grassUrl))
 
 // ファイルの末尾に追記する方法
 // fs.appendFile('diary/README.md', `\n${time}\n`, 'utf-8', (result) => {
