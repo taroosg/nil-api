@@ -22,7 +22,7 @@ app.post('/api/v1/request', (req, res) => {
     req.headers.origin === process.env.ORIGIN && req.body.uid === process.env.UID
   ) {
     console.log(req.body)
-    tweetPost(req.body.tweet);
+    // tweetPost(req.body.tweet);
     const responseData = {
       grass: getGrass(grassUrl),
       req: req.body
@@ -95,7 +95,7 @@ const grassUrl = 'https://github.com/users/taroosg/contributions'
 
 const getGrass = url => {
   const response = request('GET', url);
-  const grass = response.body.toString()
+  var grass = response.body.toString().match(/<svg(?: [\s\S]+?)?>[\s\S]*?<\/svg>/g);
   return grass;
 }
 
