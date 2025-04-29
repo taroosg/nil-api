@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^5.0.1",
-    "http-proxy-middleware": "^2.0.7",
+    "http-proxy-middleware": "^2.0.9",
     "simple-git": "^3.16.0",
     "sync-request": "^6.1.0",
     "twitter": "^1.7.1"
