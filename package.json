@@ -15,7 +15,7 @@
     "dotenv": "^8.2.0",
     "express": "^5.2.0",
     "http-proxy-middleware": "^2.0.9",
-    "simple-git": "^3.16.0",
+    "simple-git": "^3.32.3",
     "sync-request": "^6.1.0",
     "twitter": "^1.7.1"
   }
